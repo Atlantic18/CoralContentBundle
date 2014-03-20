@@ -1,0 +1,39 @@
+{
+    "name": "coral/content-bundle",
+    "type": "symfony-bundle",
+    "description": "Coral Content Bundle",
+    "keywords": ["CMS", "Coral", "REST"],
+    "homepage": "https://github.com/Atlantic18/CoralContentBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frantisek Troster",
+            "email": "frantisek.troster@atlantic18.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "coral/core-bundle": "*@dev",
+        "symfony/symfony": "~2.4",
+        "symfony/framework-bundle": "~2.4",
+        "symfony/finder": "~2.4",
+        "sensio/framework-extra-bundle": "*",
+        "doctrine/orm": "*",
+        "doctrine/doctrine-bundle": "*",
+        "gedmo/doctrine-extensions":   "dev-master"
+    },
+    "require-dev": {
+        "liip/functional-test-bundle": "dev-master",
+        "symfony-cmf/testing": "*"
+    },
+    "autoload": {
+        "psr-0": { "Coral\\ContentBundle": "" }
+    },
+    "target-dir": "Coral/ContentBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
