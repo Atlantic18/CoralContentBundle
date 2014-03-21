@@ -32,13 +32,24 @@ class SampleConfiguraleJsonController extends ConfigurableJsonController
 
 class ConfigurableJsonControllerTest extends JsonTestCase
 {
+    public function __construct()
+    {
+        /**
+         * Initially a database needs to be created or the very first run
+         * of phpunit fails. setupBeforeClass couldn't be used as it is static.
+         */
+        $this->loadFixtures(array(
+            'Coral\CoreBundle\Tests\DataFixtures\ORM\MinimalSettingsData'
+        ));
+    }
+
     public function doGetRequest($uri, $bodyContent = null)
     {
         $client = parent::doGetRequest($uri, $bodyContent);
         $this->assertIsJsonResponse($client);
         if($client->getResponse()->getStatusCode() > 299)
         {
-            throw new \Coral\SiteBundle\Exception\CoralConnectException("Unable to find content");
+            throw new \Coral\CoreBundle\Exception\CoralConnectException("Unable to find content");
         }
         return new JsonParser($client->getResponse()->getContent());
     }
@@ -81,7 +92,7 @@ class ConfigurableJsonControllerTest extends JsonTestCase
     }
 
     /**
-     * @expectedException Coral\SiteBundle\Exception\CoralConnectException
+     * @expectedException Coral\CoreBundle\Exception\CoralConnectException
      */
     public function testReadMandatoryException()
     {
