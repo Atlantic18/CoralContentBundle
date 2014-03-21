@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="Coral\ContentBundle\Entity\Repository\NodeRepository")
  * @ORM\Table(
- *     name="coral_node", 
+ *     name="coral_node",
  *     indexes={@ORM\Index(name="SlugIndex", columns={"slug"}),@ORM\Index(name="NameIndex", columns={"name"})}
  * )
  */
@@ -78,15 +78,10 @@ class Node
     private $nodeAttributes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Coral\CoreBundle\Entity\Account", inversedBy="sitemaps")
+     * @ORM\ManyToOne(targetEntity="Coral\CoreBundle\Entity\Account")
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id", nullable=false)
      */
     private $account;
-
-    /**
-     *
-     */
-    private $sitemapAttributes;
 
     /**
      * @Gedmo\TreeParent
@@ -112,7 +107,7 @@ class Node
      */
     public function __construct()
     {
-        $this->sitemapAttributes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->nodeAttributes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -262,39 +257,6 @@ class Node
     public function getAccount()
     {
         return $this->account;
-    }
-
-    /**
-     * Add sitemapAttributes
-     *
-     * @param \Coral\ContentBundle\Entity\NodeAttribute $sitemapAttributes
-     * @return Node
-     */
-    public function addSitemapAttribute(\Coral\ContentBundle\Entity\NodeAttribute $sitemapAttributes)
-    {
-        $this->sitemapAttributes[] = $sitemapAttributes;
-
-        return $this;
-    }
-
-    /**
-     * Remove sitemapAttributes
-     *
-     * @param \Coral\ContentBundle\Entity\NodeAttribute $sitemapAttributes
-     */
-    public function removeSitemapAttribute(\Coral\ContentBundle\Entity\NodeAttribute $sitemapAttributes)
-    {
-        $this->sitemapAttributes->removeElement($sitemapAttributes);
-    }
-
-    /**
-     * Get sitemapAttributes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSitemapAttributes()
-    {
-        return $this->sitemapAttributes;
     }
 
     /**
