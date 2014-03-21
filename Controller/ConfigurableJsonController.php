@@ -3,7 +3,7 @@
 namespace Coral\ContentBundle\Controller;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Coral\SiteBundle\Exception\CoralConnectException;
+use Coral\CoreBundle\Exception\CoralConnectException;
 use Coral\CoreBundle\Exception\JsonException;
 use Coral\CoreBundle\Utility\JsonParser;
 
