@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<orm-designer version="2.3.0.826" mvc="Symfony2" orm="Doctrine2">
+  <module name="ContentBundle" description="Content" import-format="Doctrine2Php" import-path="Entity" uuid="f708b1d6-57d0-4361-b5c6-14e045a03cc6">
+    <entity name="Section" uuid="0727b39b-9db2-4fe4-aefa-218bbc31442e">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="e04f1309-37cc-4fcc-800e-59856babc7a7"/>
+      <field name="name" type="string" size="32" required="true" uuid="d19292ba-a21e-4ce2-8edd-24efe7badab8"/>
+      <field name="node_id" type="integer" required="true" uuid="9aa3486f-1a40-4fc1-aee2-6f3c2e9889f1"/>
+      <field name="published" type="boolean" default="0" uuid="95722011-3815-40c0-b03c-cd966d802139"/>
+      <field name="autosave" type="boolean" default="0" uuid="7389003b-d030-413b-b784-80bb8cf4be58"/>
+      <field name="created_at" type="datetime" uuid="80ccdaf0-5b34-4d38-8c69-82d06299e7f7"/>
+      <field name="updated_at" type="datetime" uuid="3f62e68c-3562-4542-beee-1d00f1fddfdf"/>
+      <orm-attributes>
+        <attribute name="table">coral_section</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Section" to="Node" owner-alias="sections" inverse-alias="node" uuid="c53c8eb7-609f-4bb6-9259-bd74e0f9453e">
+      <association-field from="node_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="Node" uuid="72d10701-f358-4efc-ac16-fbc54e608b6f">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="a8dcfc70-3343-4a16-a638-67fc3923c86a"/>
+      <field name="name" type="string" size="255" required="true" uuid="c1ce398b-5764-4a25-8513-979ca5b294be"/>
+      <field name="slug" type="string" size="255" required="true" uuid="7502aded-c890-45d5-b3d7-508a9919e839"/>
+      <field name="account_id" type="integer" required="true" uuid="b8d4f07c-fd66-42d4-baf4-6cbdf1486356"/>
+      <field name="lft" type="integer" required="true" uuid="e3af50ce-e7b8-4daa-8139-aee19bd34866"/>
+      <field name="rgt" type="integer" required="true" uuid="df2d6b02-6049-4cce-9b08-982eb01e523d"/>
+      <field name="level" type="integer" required="true" uuid="164f31de-477c-45d9-b63f-5bb494aabcfd"/>
+      <field name="root" type="integer" uuid="c073d975-549c-49a9-98ac-8d9312e35481"/>
+      <field name="created_at" type="datetime" uuid="207980d8-7ba5-4bc1-8a06-d73380808769"/>
+      <field name="updated_at" type="datetime" uuid="84af746a-993e-4f54-b62b-858f9e400022"/>
+      <field name="parent_id" type="integer" uuid="e20d3bcf-1bf3-4b86-8e1a-921d20d502ba"/>
+      <index name="SlugIndex">
+        <index-field name="slug"/>
+      </index>
+      <index name="NameIndex">
+        <index-field name="name"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">coral_node</attribute>
+        <attribute name="repository-class">Coral\ContentBundle\Entity\Repository\NodeRepository</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Node" to="Account" inverse-alias="account" uuid="3b86d03b-e057-46c8-aaff-3e0b394e41e3">
+      <association-field from="account_id" to="id"/>
+    </association>
+    <association from="Node" to="Node" owner-alias="children" inverse-alias="parent" uuid="ec9828ca-a7ea-4eae-9670-1ebdfb8ddc00">
+      <association-field from="parent_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-inverse">
+          <attribute name="order-by">
+            <attribute name="order-by-field">
+              <attribute name="direction">ASC</attribute>
+              <attribute name="field">lft</attribute>
+            </attribute>
+          </attribute>
+        </attribute>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="NodeAttribute" uuid="b328e071-69d7-4a67-8687-af327ce0e913">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="b4dc19d1-8fd1-4f33-ab59-f7a2a9c752d1"/>
+      <field name="name" type="string" size="32" required="true" uuid="88a45e4e-d4f7-44cc-8735-f7419bc71810"/>
+      <field name="value" type="string" size="128" required="true" uuid="d37128c6-7ce7-4ae3-9303-01c6859c8536"/>
+      <field name="node_id" type="integer" required="true" uuid="1ffc0ff7-4995-435e-895f-ab3d591d3ccf"/>
+      <index name="NodeAttributeNameValueIndex">
+        <index-field name="name"/>
+        <index-field name="value"/>
+      </index>
+      <index name="NodeAttributeNameIndex">
+        <index-field name="name"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">coral_node_attribute</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="NodeAttribute" to="Node" owner-alias="nodeAttributes" inverse-alias="node" uuid="849d749d-ea87-45c5-b3da-4f2ec6ef6456">
+      <association-field from="node_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="Content" uuid="1a5ca799-5e46-4001-8a3d-138b6491b25b">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="97d8aee3-5137-49ac-879e-ff0af3b821fa"/>
+      <field name="content" type="string" size="9999" required="true" uuid="414f7bdd-51ec-4a46-80b3-8cf9938c739b"/>
+      <field name="renderer" type="string" size="32" default="markdown" required="true" uuid="37ef6a2e-2cc0-4932-ad85-df3528235ffc"/>
+      <field name="hash" description="sha1 text hash" type="string" size="40" required="true" uuid="a2bf50a9-dd49-41f9-8302-646ea81576f9"/>
+      <field name="permid" description="permanent id for all content versions" type="string" size="64" required="true" uuid="7f343a50-29da-4b2f-9300-eab95f7b8381"/>
+      <field name="sortorder" type="integer" required="true" uuid="781d1ca1-9584-4589-abb6-7107d3d0164d"/>
+      <field name="section_id" type="integer" required="true" uuid="73683068-c48f-4f32-ab2c-2b45147418e2"/>
+      <orm-attributes>
+        <attribute name="table">coral_content</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Content" to="Section" owner-alias="contents" inverse-alias="section" uuid="d02de9e2-4613-47a3-ad4c-e351cf2d5c37">
+      <association-field from="section_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+        <attribute name="side-inverse">
+          <attribute name="order-by">
+            <attribute name="order-by-field">
+              <attribute name="field">sortorder</attribute>
+              <attribute name="direction">ASC</attribute>
+            </attribute>
+          </attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <orm-attributes>
+      <attribute name="namespace">Coral\ContentBundle\Entity</attribute>
+      <attribute name="filename-format">entity-name-only</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="0727b39b-9db2-4fe4-aefa-218bbc31442e" position-x="97" position-y="175" size-x="0" size-x2="116" size-y="0" size-y2="101"/>
+    <entity uuid="1a5ca799-5e46-4001-8a3d-138b6491b25b" position-x="308" position-y="275" size-x="0" size-x2="114" size-y="0" size-y2="115"/>
+    <entity uuid="72d10701-f358-4efc-ac16-fbc54e608b6f" position-x="297" position-y="50" size-x="0" size-x2="103" size-y="0" size-y2="115"/>
+    <entity uuid="b328e071-69d7-4a67-8687-af327ce0e913" position-x="22" position-y="50" size-x="0" size-x2="106" size-y="0" size-y2="73"/>
+    <module uuid="f708b1d6-57d0-4361-b5c6-14e045a03cc6" bk-color="4294702841" position-x="28" position-y="25" size-x="3" size-x2="572" size-y="0" size-y2="450"/>
+  </visual-data>
+</orm-designer>
