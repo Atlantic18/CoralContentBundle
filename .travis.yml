@@ -12,6 +12,4 @@ script:
   - phpunit --coverage-text
 
 notifications:
-  email: 
-    - developers@atlantic18.com
-    - frantisek.troster@gmail.com
+  email: developers@atlantic18.com
