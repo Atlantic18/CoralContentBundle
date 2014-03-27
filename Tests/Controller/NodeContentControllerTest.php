@@ -38,7 +38,7 @@ class NodeContentControllerTest extends JsonTestCase
         $jsonRequest  = new JsonParser($client->getResponse()->getContent());
 
         $this->assertEquals('ok', $jsonRequest->getMandatoryParam('status'));
-        $this->assertFalse(empty($jsonRequest->getMandatoryParam('permid')));
+        $this->assertFalse($jsonRequest->getMandatoryParam('permid') == '');
 
         $permid = $jsonRequest->getMandatoryParam('permid');
 
