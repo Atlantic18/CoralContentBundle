@@ -177,8 +177,6 @@ class NodeListControllerTest extends JsonTestCase
         ));
         $nodeId = 3;
 
-        $time = time();
-
         $client = $this->doPostRequest(
             '/v1/content/add/' . $nodeId . '/text',
             '{ "content": "some_text", "renderer": "markdown" }'
@@ -204,7 +202,8 @@ class NodeListControllerTest extends JsonTestCase
         $this->assertEquals($nodeId, $jsonRequest->getMandatoryParam('id'));
         $this->assertEquals('first-child', $jsonRequest->getMandatoryParam('slug'));
         $this->assertEquals('treevalue', $jsonRequest->getMandatoryParam('tree_param'));
-        $this->assertGreaterThanOrEqual($time - 10, strtotime($jsonRequest->getMandatoryParam('created_at')));
+        //is valid timestamp
+        $this->assertTrue(strtotime($jsonRequest->getMandatoryParam('created_at')) !== false);
         $this->assertEquals(strtotime($jsonRequest->getMandatoryParam('created_at')), strtotime($jsonRequest->getMandatoryParam('updated_at')));
         $sections = $jsonRequest->getMandatoryParam('sections');
         $this->assertCount(0, $sections);
@@ -268,9 +267,6 @@ class NodeListControllerTest extends JsonTestCase
         ));
         $nodeId = 3;
 
-        //go five second back, it sometime causes troubles
-        $time = time() - 5;
-
         $client = $this->doPostRequest(
             '/v1/content/add/' . $nodeId . '/text',
             '{ "content": "some_text", "renderer": "markdown" }'
@@ -288,7 +284,8 @@ class NodeListControllerTest extends JsonTestCase
         $this->assertEquals($nodeId, $jsonRequest->getMandatoryParam('id'));
         $this->assertEquals('first-child', $jsonRequest->getMandatoryParam('slug'));
         $this->assertEquals('treevalue', $jsonRequest->getMandatoryParam('tree_param'));
-        $this->assertGreaterThanOrEqual($time, strtotime($jsonRequest->getMandatoryParam('created_at')));
+        //is valid timestamp
+        $this->assertTrue(strtotime($jsonRequest->getMandatoryParam('created_at')) !== false);
         $sections = $jsonRequest->getMandatoryParam('sections');
         $this->assertCount(1, $sections);
         $this->assertCount(1, $sections[0]['items']);
