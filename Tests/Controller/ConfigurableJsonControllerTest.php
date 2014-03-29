@@ -75,7 +75,7 @@ class ConfigurableJsonControllerTest extends JsonTestCase
 
         $client = $this->doPostRequest(
             '/v1/content/add/' . $nodeId . '/text',
-            '{ "content": "{ \'key\': 10 }", "renderer": "json" }'
+            '{ "content": "{ \\"key\\": 10 }", "renderer": "json" }'
         );
         $this->assertIsJsonResponse($client);
         $this->assertIsStatusCode($client, 201);
@@ -126,7 +126,7 @@ class ConfigurableJsonControllerTest extends JsonTestCase
 
         $client = $this->doPostRequest(
             '/v1/content/add/' . $nodeId . '/text',
-            '{ "content": "{ \'key\': 10 }", "renderer": "json" }'
+            '{ "content": "{ \\"key\\": 10 }", "renderer": "json" }'
         );
         $this->assertIsJsonResponse($client);
         $this->assertIsStatusCode($client, 201);
