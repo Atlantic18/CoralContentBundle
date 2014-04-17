@@ -85,7 +85,7 @@
       <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="97d8aee3-5137-49ac-879e-ff0af3b821fa"/>
       <field name="content" type="string" size="9999" required="true" uuid="414f7bdd-51ec-4a46-80b3-8cf9938c739b"/>
       <field name="renderer" type="string" size="32" default="markdown" required="true" uuid="37ef6a2e-2cc0-4932-ad85-df3528235ffc"/>
-      <field name="hash" description="sha1 text hash" type="string" size="40" required="true" uuid="a2bf50a9-dd49-41f9-8302-646ea81576f9"/>
+      <field name="hash" description="sha1 text hash" type="string" size="64" required="true" uuid="a2bf50a9-dd49-41f9-8302-646ea81576f9"/>
       <field name="permid" description="permanent id for all content versions" type="string" size="64" required="true" uuid="7f343a50-29da-4b2f-9300-eab95f7b8381"/>
       <field name="sortorder" type="integer" required="true" uuid="781d1ca1-9584-4589-abb6-7107d3d0164d"/>
       <field name="section_id" type="integer" required="true" uuid="73683068-c48f-4f32-ab2c-2b45147418e2"/>

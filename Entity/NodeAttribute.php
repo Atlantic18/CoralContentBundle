@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(
- *     name="coral_node_attribute",
+ *     name="coral_node_attribute", 
  *     indexes={
  *         @ORM\Index(name="NodeAttributeNameValueIndex", columns={"name","value"}),
  *         @ORM\Index(name="NodeAttributeNameIndex", columns={"name"})

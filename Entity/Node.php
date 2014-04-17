@@ -18,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="Coral\ContentBundle\Entity\Repository\NodeRepository")
  * @ORM\Table(
- *     name="coral_node",
+ *     name="coral_node", 
  *     indexes={@ORM\Index(name="SlugIndex", columns={"slug"}),@ORM\Index(name="NameIndex", columns={"name"})}
  * )
  */

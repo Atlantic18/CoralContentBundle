@@ -36,7 +36,7 @@ class Content
     private $renderer;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=false)
+     * @ORM\Column(type="string", length=40, nullable=false)
      */
     private $hash;
 
