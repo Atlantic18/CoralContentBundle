@@ -36,7 +36,7 @@ class Content
     private $renderer;
 
     /**
-     * @ORM\Column(type="string", length=40, nullable=false)
+     * @ORM\Column(type="string", length=64, nullable=false)
      */
     private $hash;
 
@@ -44,12 +44,6 @@ class Content
      * @ORM\Column(type="string", length=64, nullable=false)
      */
     private $permid;
-
-    /**
-     *
-     *
-     */
-    private $Section;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -61,12 +55,6 @@ class Content
      * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $section;
-
-    /**
-     *
-     *
-     */
-    private $Sections;
 
     /**
      * Get id
