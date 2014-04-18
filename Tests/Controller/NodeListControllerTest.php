@@ -199,6 +199,14 @@ class NodeListControllerTest extends JsonTestCase
         );
         $this->assertIsStatusCode($client, 201);
 
+        $client = $this->doPostRequest(
+            '/v1/content/add/' . $nodeId . '/xion2',
+            '{ "content": "other_text_section2", "renderer": "markdown" }'
+        );
+        $this->assertIsStatusCode($client, 201);
+        $jsonRequest  = new JsonParser($client->getResponse()->getContent());
+        $permid2 = $jsonRequest->getMandatoryParam('permid');
+
         //Get node detail
         $client = $this->doGetRequest('/v1/node/detail/published/first-child');
 
@@ -228,6 +236,18 @@ class NodeListControllerTest extends JsonTestCase
         );
         $this->assertIsStatusCode($client, 200);
 
+        $client = $this->doPostRequest(
+            '/v1/content/update/' . $permid,
+            '{ "content": "text3", "renderer": "markdown" }'
+        );
+        $this->assertIsStatusCode($client, 200);
+
+        $client = $this->doPostRequest(
+            '/v1/content/update/' . $permid2,
+            '{ "content": "new_text_section2", "renderer": "markdown" }'
+        );
+        $this->assertIsStatusCode($client, 200);
+
         //Get node detail
         $client = $this->doGetRequest('/v1/node/detail/published/first-child');
 
@@ -242,11 +262,14 @@ class NodeListControllerTest extends JsonTestCase
         $this->assertEquals('treevalue', $jsonRequest->getMandatoryParam('tree_param'));
         $this->assertGreaterThanOrEqual(strtotime($jsonRequest->getMandatoryParam('created_at')), strtotime($jsonRequest->getMandatoryParam('updated_at')));
         $sections = $jsonRequest->getMandatoryParam('sections');
-        $this->assertCount(1, $sections);
+        $this->assertCount(2, $sections);
         $this->assertCount(2, $sections[0]['items']);
         $this->assertEquals('text', $sections[0]['name']);
         $this->assertEquals('some_text', $jsonRequest->getMandatoryParam('sections[0].items[0].content'));
         $this->assertEquals('markdown', $sections[0]['items'][0]['renderer']);
+        $this->assertCount(1, $sections[1]['items']);
+        $this->assertEquals('xion2', $sections[1]['name']);
+        $this->assertEquals('other_text_section2', $jsonRequest->getMandatoryParam('sections[1].items[0].content'));
 
         //publish text3 change
         $client = $this->doPostRequest('/v1/content/publish/' . $nodeId);
@@ -255,6 +278,7 @@ class NodeListControllerTest extends JsonTestCase
         $this->assertIsJsonResponse($client);
         $jsonRequest  = new JsonParser($client->getResponse()->getContent());
         $this->assertEquals('text3', $jsonRequest->getMandatoryParam('sections[0].items[0].content'));
+        $this->assertEquals('new_text_section2', $jsonRequest->getMandatoryParam('sections[1].items[0].content'));
     }
 
     public function testDetailPublishedInvalidAccount()

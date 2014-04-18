@@ -354,8 +354,6 @@ class ContentController extends JsonController
                     WHERE
                         s.node = :node_id
                     AND
-                        s.autosave = 1
-                    AND
                         s.id IN (:latest_ids)
                 ')
                 ->setParameter('node_id', $node->getId())
