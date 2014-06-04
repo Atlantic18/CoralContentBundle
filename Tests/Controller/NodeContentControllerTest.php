@@ -143,6 +143,27 @@ class NodeContentControllerTest extends JsonTestCase
         $this->assertRegExp('/invalid/', $jsonRequest->getMandatoryParam('message'));
     }
 
+    public function testAddLongContent()
+    {
+        $this->loadFixtures(array(
+            'Coral\ContentBundle\Tests\DataFixtures\ORM\ContentSettingsData'
+        ));
+        $nodeId = 1;
+
+        $client = $this->doPostRequest(
+            '/v1/content/add/' . $nodeId . '/text',
+            '{ "content": "' . str_repeat('abcd', 2501) . '", "renderer": "markdown" }'
+        );
+
+        $this->assertIsJsonResponse($client);
+        $this->assertIsStatusCode($client, 500);
+
+        $jsonRequest  = new JsonParser($client->getResponse()->getContent());
+
+        $this->assertEquals('failed', $jsonRequest->getMandatoryParam('status'));
+        $this->assertRegExp('/Maximum/', $jsonRequest->getMandatoryParam('message'));
+    }
+
     public function testAddPositionContent()
     {
         $this->loadFixtures(array(

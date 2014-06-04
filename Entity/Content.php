@@ -74,6 +74,11 @@ class Content
      */
     public function setContent($content)
     {
+        if(strlen($content) > 9900)
+        {
+            throw new \InvalidArgumentException('Maximum content length is 9900 characters');
+        }
+
         $this->content = $content;
 
         $this->setHash(sha1($content));
