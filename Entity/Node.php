@@ -459,4 +459,27 @@ class Node
     {
         return $this->nodeAttributes;
     }
+
+    /**
+     * Add children
+     *
+     * @param \Coral\ContentBundle\Entity\Node $children
+     * @return Node
+     */
+    public function addChild(\Coral\ContentBundle\Entity\Node $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Coral\ContentBundle\Entity\Node $children
+     */
+    public function removeChild(\Coral\ContentBundle\Entity\Node $children)
+    {
+        $this->children->removeElement($children);
+    }
 }
