@@ -37,7 +37,7 @@ class NodeAttribute
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=false)
+     * @ORM\Column(type="string", length=256, nullable=false)
      */
     private $value;
 

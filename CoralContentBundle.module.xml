@@ -62,7 +62,7 @@
     <entity name="NodeAttribute" uuid="b328e071-69d7-4a67-8687-af327ce0e913">
       <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="b4dc19d1-8fd1-4f33-ab59-f7a2a9c752d1"/>
       <field name="name" type="string" size="32" required="true" uuid="88a45e4e-d4f7-44cc-8735-f7419bc71810"/>
-      <field name="value" type="string" size="128" required="true" uuid="d37128c6-7ce7-4ae3-9303-01c6859c8536"/>
+      <field name="value" type="string" size="256" required="true" uuid="d37128c6-7ce7-4ae3-9303-01c6859c8536"/>
       <field name="node_id" type="integer" required="true" uuid="1ffc0ff7-4995-435e-895f-ab3d591d3ccf"/>
       <index name="NodeAttributeNameValueIndex">
         <index-field name="name"/>
